@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <form>
+                <div class="display">
+                    <input type="text" id="display">
+                </div>
+                <div>
+                    <input type="button" value="AC" onclick="clearDisplay()" class="operator">
+                    <input type="button" value="DE" onclick="deleteLast()" class="operator">
+                    <input type="button" value="." onclick="appendSymbol('.')" class="operator">
+                    <input type="button" value="/" onclick="appendSymbol('/')" class="operator">
+                </div>
+                <div>
+                    <input type="button" value="7" onclick="appendNumber('7')">
+                    <input type="button" value="8" onclick="appendNumber('8')">
+                    <input type="button" value="9" onclick="appendNumber('9')">
+                    <input type="button" value="*" onclick="appendSymbol('*')" class="operator">
+                </div>
+                <div>
+                    <input type="button" value="4" onclick="appendNumber('4')">
+                    <input type="button" value="5" onclick="appendNumber('5')">
+                    <input type="button" value="6" onclick="appendNumber('6')">
+                    <input type="button" value="-" onclick="appendSymbol('-')" class="operator">
+                </div>
+                <div>
+                    <input type="button" value="1" onclick="appendNumber('1')">
+                    <input type="button" value="2" onclick="appendNumber('2')">
+                    <input type="button" value="3" onclick="appendNumber('3')">
+                    <input type="button" value="+" onclick="appendSymbol('+')" class="operator">
+                </div>
+                <div>
+                    <input type="button" value="00" onclick="appendNumber('00')">
+                    <input type="button" value="0" onclick="appendNumber('0')">
+                    <input type="button" value="=" onclick="calculateResult()" class="equal">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function appendNumber(num) {
+            display.value += num;
+        }
+
+        function appendSymbol(symbol) {
+            if (display.value.length === 0) return;
+            let lastChar = display.value.slice(-1);
+            if (!['+', '-', '*', '/', '.'].includes(lastChar)) {
+                display.value += symbol;
+            }
+        }
+
+        function calculateResult() {
+            if (display.value.length === 0) return;
+    try {
+        display.value = new Function('return ' + display.value)();
+    } catch {
+        display.value = "Error";
+    }
+}
+
+        
+    </script>
+</body>
+</html>
